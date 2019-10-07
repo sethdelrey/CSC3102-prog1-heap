@@ -22,9 +22,12 @@ public class MainClass {
                 }
                 else {
                     i++;
-                    write.write(A.extractMin() + " \\ result for extract-min operation " + i+"\n");
+                    write.write(A.extractMin() + "\n"); //"\\ result for extract-min operation " + i+"\n");
                 }
             }
+            long endTime = System.nanoTime();
+            long timeElapsed = endTime - startTime;
+            write.write(timeElapsed/1000 + " micro-sec\n");
             write.close();
         }
         catch (FileNotFoundException e) {
@@ -33,9 +36,9 @@ public class MainClass {
         catch (IOException ex) {
             ex.printStackTrace();
         }
-        long endTime = System.nanoTime();
-        long timeElapsed = endTime - startTime;
-        System.out.println(timeElapsed/1000+" micro-sec");
+//        long endTime = System.nanoTime();
+//        long timeElapsed = endTime - startTime;
+//        System.out.println(timeElapsed/1000+" micro-sec");
     }
 
 }
