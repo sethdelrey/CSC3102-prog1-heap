@@ -10,7 +10,7 @@ public class MinHeap {
         this.maxsize = maxsize;
         this.size = 0;
         Heap = new int[this.maxsize + 1];
-        Heap[0] = Integer.MIN_VALUE;
+        // Heap[0] = Integer.MIN_VALUE;
         this.k = k;
     }
 
@@ -65,9 +65,9 @@ public class MinHeap {
         if (size >= maxsize) {
             return;
         }
-        Heap[++size] = x;
+        Heap[size] = x;
         int curr = size;
-
+        size++;
 //        minHeapify(size--);
         while (Heap[curr] < Heap[parent(curr)]) {
             swap(curr, parent(curr));
