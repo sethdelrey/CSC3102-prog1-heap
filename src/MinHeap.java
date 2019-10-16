@@ -68,10 +68,11 @@ public class MinHeap {
         Heap[++size] = x;
         int curr = size;
 
+//        minHeapify(size--);
         while (Heap[curr] < Heap[parent(curr)]) {
             swap(curr, parent(curr));
             curr = parent(curr);
-        }
+       }
     }
 
     public int extractMin() {
