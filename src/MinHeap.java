@@ -18,13 +18,13 @@ public class MinHeap {
         return pos/k;
     }
 
-    private int leftChild(int pos) {
-        return k*pos;
-    }
-
-    private int rightChild(int pos) {
-        return (k*pos) + 1;
-    }
+//    private int leftChild(int pos) {
+//        return k*pos;
+//    }
+//
+//    private int rightChild(int pos) {
+//        return (k*pos) + 1;
+//    }
 
     private boolean isLeaf(int pos) {
         if (pos >= (size/k) && pos <= size) {
@@ -44,21 +44,49 @@ public class MinHeap {
     private void minHeapify(int pos) {
         //if node is nonleaf & greater than
         //any of its children
-        if (!isLeaf(pos)) {
-            if (Heap[pos] > Heap[leftChild(pos)] || Heap[pos] > Heap[rightChild(pos)]) {
+        int[] child = new int[k];
+        int minChild;
+        int minChildIndex = -1; //says otherwise it might not have been initialized
 
-                //swap w leftchild and heapify left child
-                if (Heap[leftChild(pos)] < Heap[rightChild(pos)]) {
-                    swap(pos, leftChild(pos));
-                    minHeapify(leftChild(pos));
-                }
-                //swap w rightchild & heapify rightchild
-                else {
-                    swap(pos, rightChild(pos));
-                    minHeapify(rightChild(pos));
+        while (true) {
+            for (int i=0; i<k; i++) {
+                if (((k*pos + i) < size))
+                    child[i] = k*pos + i;
+                else
+                    child[i] = -1;
+            }
+            minChild = -1;
+            for (int i=0; i<k; i++) {
+                if (child[i] != -1 && Heap[child[i]] < minChild) {
+                    minChildIndex = child[i];
+                    minChild = Heap[child[i]];
                 }
             }
+            //leaf node
+            if (minChild == -1)
+                break;
+
+            //swap only if key of minChildIndex
+            //is less than key of node
+            if (Heap[pos] > Heap[minChildIndex])
+                swap(Heap[pos], Heap[minChildIndex]);
         }
+
+//        if (!isLeaf(pos)) {
+//            if (Heap[pos] > Heap[leftChild(pos)] || Heap[pos] > Heap[rightChild(pos)]) {
+//
+//                //swap w leftchild and heapify left child
+//                if (Heap[leftChild(pos)] < Heap[rightChild(pos)]) {
+//                    swap(pos, leftChild(pos));
+//                    minHeapify(leftChild(pos));
+//                }
+//                //swap w rightchild & heapify rightchild
+//                else {
+//                    swap(pos, rightChild(pos));
+//                    minHeapify(rightChild(pos));
+//                }
+//            }
+//        }
     }
 
     public void insert(int x) {
