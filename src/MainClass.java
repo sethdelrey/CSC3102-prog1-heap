@@ -38,33 +38,49 @@ public class MainClass {
         catch (IOException ex) {
             ex.printStackTrace();
         }
-//        long endTime = System.nanoTime();
-//        long timeElapsed = endTime - startTime;
-//        System.out.println(timeElapsed/1000+" micro-sec");
     }
 
-    public static void inputFileGenerator(int maxsize) {
-        try (FileWriter write = new FileWriter(new File("input.txt"));) {
-            int i = 0;
-//            while (i < 5000) {
-             while (i < maxsize) {
-                Random rand = new Random();
-                int num = rand.nextInt(20000);
-                if (num < 0) {
-                    num = num * -1;
-                }
-                write.write("IN " + num + "\n");
+    public static void inputFileGenerator (int max){
+        try (FileWriter write = new FileWriter(new File("input.txt"))) {
+            int[] arr = new int[max];
+            int i = 1;
+            while (i < arr.length + 1) {
+                arr[i - 1] = i;
                 i++;
             }
+            int x = arr[arr.length - 1];
+            RandomizeArray(arr);
             i = 0;
-            while (i < maxsize) {
-                write.write("EX\n");
+            while (i < arr.length) {
+                write.write("IN " + arr[i] + "\n");
                 i++;
             }
-            write.close();
+
+            i = 0;
+            while (i < max) {
+                while (i < max) {
+                    write.write("EX\n");
+                    i++;
+                }
+                write.close();
+            }
         }
-        catch (Exception e) {
+        catch(Exception e){
             System.err.print(e);
         }
     }
+
+    public static int[] RandomizeArray ( int[] array){
+        Random rgen = new Random();  // Random number generator
+
+        for (int i = 0; i < array.length; i++) {
+            int randomPosition = rgen.nextInt(array.length);
+            int temp = array[i];
+            array[i] = array[randomPosition];
+            array[randomPosition] = temp;
+        }
+
+        return array;
+    }
 }
+
