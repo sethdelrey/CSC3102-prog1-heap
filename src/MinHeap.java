@@ -10,7 +10,6 @@ public class MinHeap {
         this.maxsize = maxsize;
         this.size = 0;
         Heap = new int[this.maxsize];
-        // Heap[0] = Integer.MIN_VALUE;
         this.k = k;
     }
 
@@ -18,13 +17,6 @@ public class MinHeap {
         return pos/k;
     }
 
-//    private int leftChild(int pos) {
-//        return k*pos;
-//    }
-//
-//    private int rightChild(int pos) {
-//        return (k*pos) + 1;
-//    }
 
     private boolean isLeaf(int pos) {
         if (pos >= (size/k) && pos <= size) {
@@ -49,16 +41,16 @@ public class MinHeap {
         int minChildIndex = -1; //says otherwise it might not have been initialized
 
         while (true) {
-            for (int i=1; i<k+1; i++) {
-                if (((k*pos + i) < size))
-                    child[i-1] = k*pos + i;
+            for (int i = 1; i < k + 1; i++) {
+                if (((k * pos + i) < size))
+                    child[i - 1] = k * pos + i;
                 else
-                    child[i-1] = Integer.MAX_VALUE;
+                    child[i - 1] = Integer.MAX_VALUE;
             }
 
             minChild = Integer.MAX_VALUE;
 
-            for (int i=0; i<k; i++) {
+            for (int i = 0; i < k; i++) {
                 if (child[i] != Integer.MAX_VALUE && Heap[child[i]] < minChild) {
                     minChildIndex = child[i];
                     minChild = Heap[child[i]];
@@ -77,22 +69,6 @@ public class MinHeap {
 
             pos = minChildIndex;
         }
-
-//        if (!isLeaf(pos)) {
-//            if (Heap[pos] > Heap[leftChild(pos)] || Heap[pos] > Heap[rightChild(pos)]) {
-//
-//                //swap w leftchild and heapify left child
-//                if (Heap[leftChild(pos)] < Heap[rightChild(pos)]) {
-//                    swap(pos, leftChild(pos));
-//                    minHeapify(leftChild(pos));
-//                }
-//                //swap w rightchild & heapify rightchild
-//                else {
-//                    swap(pos, rightChild(pos));
-//                    minHeapify(rightChild(pos));
-//                }
-//            }
-//        }
     }
 
     public void insert(int x) {
@@ -102,6 +78,7 @@ public class MinHeap {
         Heap[size] = x;
         int curr = size;
         size++;
+        System.out.print(size);
         minHeapify(size--);
         while (Heap[curr] < Heap[parent(curr)]) {
             swap(curr, parent(curr));
@@ -111,7 +88,7 @@ public class MinHeap {
 
     public int extractMin() {
         int popped = Heap[FRONT];
-        System.out.print(size--+" "+FRONT);
+        System.out.print(size+" "+FRONT);
         Heap[FRONT] = Heap[--size];
         minHeapify(FRONT);
         return popped;
