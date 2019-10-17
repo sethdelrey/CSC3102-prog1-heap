@@ -4,12 +4,12 @@ public class MinHeap {
     private int maxsize;
     private int k;
 
-    private static final int FRONT = 1;
+    private static final int FRONT = 0;
 
     public MinHeap(int maxsize, int k) {
         this.maxsize = maxsize;
         this.size = 0;
-        Heap = new int[this.maxsize + 1];
+        Heap = new int[this.maxsize];
         // Heap[0] = Integer.MIN_VALUE;
         this.k = k;
     }
@@ -77,7 +77,7 @@ public class MinHeap {
 
     public int extractMin() {
         int popped = Heap[FRONT];
-        Heap[FRONT] = Heap[size--];
+        Heap[FRONT] = Heap[--size];
         minHeapify(FRONT);
         return popped;
     }

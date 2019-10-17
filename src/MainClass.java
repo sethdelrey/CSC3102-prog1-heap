@@ -7,10 +7,11 @@ import java.util.Scanner;
 
 public class MainClass {
     public static void main(String[] args) {
-        inputFileGenerator();
+        int maxsize = 100;
+        inputFileGenerator(maxsize);
         long startTime = System.nanoTime();
-        int maxsize = 50000;
-        int k = 3;
+
+        int k = 2;
         MinHeap A = new MinHeap(maxsize, k);
         try (Scanner fin = new Scanner(new File("input.txt"))) {
             FileWriter write = new FileWriter(new File("output.txt"));
@@ -38,25 +39,26 @@ public class MainClass {
         catch (IOException ex) {
             ex.printStackTrace();
         }
-//        long endTime = System.nanoTime();
-//        long timeElapsed = endTime - startTime;
-//        System.out.println(timeElapsed/1000+" micro-sec");
     }
 
-    public static void inputFileGenerator() {
-        try (FileWriter write = new FileWriter(new File("input.txt"));) {
-            int i = 0;
-            while (i < 5000) {
-                Random rand = new Random();
-                int num = rand.nextInt(20000);
-                if (num < 0) {
-                    num = num * -1;
-                }
-                write.write("IN " + num + "\n");
+    public static void inputFileGenerator(int max) {
+        try (FileWriter write = new FileWriter(new File("input.txt"))) {
+            int[] arr = new int [max];
+            int i = 1;
+            while (i < arr.length + 1) {
+                arr[i-1] = i;
                 i++;
             }
+            int x = arr[arr.length - 1];
+            RandomizeArray(arr);
             i = 0;
-            while (i < 5000) {
+            while (i < arr.length) {
+                write.write("IN " + arr[i] + "\n");
+                i++;
+            }
+
+            i = 0;
+            while (i < max) {
                 write.write("EX\n");
                 i++;
             }
@@ -65,5 +67,18 @@ public class MainClass {
         catch (Exception e) {
             System.err.print(e);
         }
+    }
+
+    public static int[] RandomizeArray(int[] array){
+        Random rgen = new Random();  // Random number generator
+
+        for (int i=0; i<array.length; i++) {
+            int randomPosition = rgen.nextInt(array.length);
+            int temp = array[i];
+            array[i] = array[randomPosition];
+            array[randomPosition] = temp;
+        }
+
+        return array;
     }
 }
