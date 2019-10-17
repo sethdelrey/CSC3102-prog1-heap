@@ -78,7 +78,6 @@ public class MinHeap {
         Heap[size] = x;
         int curr = size;
         size++;
-//        System.out.print(size);
         minHeapify(size--);
         while (Heap[curr] < Heap[parent(curr)]) {
             swap(curr, parent(curr));
