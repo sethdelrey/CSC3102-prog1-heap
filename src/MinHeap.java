@@ -87,7 +87,6 @@ public class MinHeap {
     public int extractMin() {
         int popped = Heap[FRONT];
         Heap[FRONT] = Heap[--size];  //keep getting error here; size is staying at 1
-        size--;
         minHeapify(FRONT);
         return popped;
     }
