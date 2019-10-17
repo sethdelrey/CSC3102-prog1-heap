@@ -78,7 +78,7 @@ public class MinHeap {
         Heap[size] = x;
         int curr = size;
         size++;
-        minHeapify(size--);
+//        minHeapify(size--);   <-- i don't see how this makes a difference bc it's a leaf
         while (Heap[curr] < Heap[parent(curr)]) {
             swap(curr, parent(curr));
             curr = parent(curr);
