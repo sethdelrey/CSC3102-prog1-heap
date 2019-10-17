@@ -4,7 +4,7 @@ public class MinHeap {
     private int maxsize;
     private int k;
 
-    private static final int FRONT = 1;
+    private static final int FRONT = 0;
 
     public MinHeap(int maxsize, int k) {
         this.maxsize = maxsize;
@@ -55,7 +55,7 @@ public class MinHeap {
                 else
                     child[i] = -1;
             }
-            minChild = -1;
+            minChild = size+1;
             for (int i=0; i<k; i++) {
                 if (child[i] != -1 && Heap[child[i]] < minChild) {
                     minChildIndex = child[i];
@@ -63,12 +63,12 @@ public class MinHeap {
                 }
             }
             //leaf node
-            if (minChild == -1)
+            if (minChild == size+1)
                 break;
 
             //swap only if key of minChildIndex
             //is less than key of node
-            if (Heap[pos] > Heap[minChildIndex])
+            if (minChildIndex > -1 && Heap[pos] > Heap[minChildIndex])
                 swap(Heap[pos], Heap[minChildIndex]);
         }
 
@@ -96,7 +96,7 @@ public class MinHeap {
         Heap[size] = x;
         int curr = size;
         size++;
-//        minHeapify(size--);
+        minHeapify(size--);
         while (Heap[curr] < Heap[parent(curr)]) {
             swap(curr, parent(curr));
             curr = parent(curr);
@@ -105,6 +105,7 @@ public class MinHeap {
 
     public int extractMin() {
         int popped = Heap[FRONT];
+        System.out.print(size--+" "+FRONT);
         Heap[FRONT] = Heap[size--];
         minHeapify(FRONT);
         return popped;

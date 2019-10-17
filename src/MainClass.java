@@ -7,10 +7,10 @@ import java.util.Scanner;
 
 public class MainClass {
     public static void main(String[] args) {
-        inputFileGenerator();
         long startTime = System.nanoTime();
         int maxsize = 50000;
         int k = 3;
+        inputFileGenerator(maxsize);
         MinHeap A = new MinHeap(maxsize, k);
         try (Scanner fin = new Scanner(new File("input.txt"))) {
             FileWriter write = new FileWriter(new File("output.txt"));
@@ -43,10 +43,11 @@ public class MainClass {
 //        System.out.println(timeElapsed/1000+" micro-sec");
     }
 
-    public static void inputFileGenerator() {
+    public static void inputFileGenerator(int maxsize) {
         try (FileWriter write = new FileWriter(new File("input.txt"));) {
             int i = 0;
-            while (i < 5000) {
+//            while (i < 5000) {
+             while (i < maxsize) {
                 Random rand = new Random();
                 int num = rand.nextInt(20000);
                 if (num < 0) {
@@ -56,7 +57,7 @@ public class MainClass {
                 i++;
             }
             i = 0;
-            while (i < 5000) {
+            while (i < maxsize) {
                 write.write("EX\n");
                 i++;
             }
