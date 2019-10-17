@@ -78,7 +78,7 @@ public class MinHeap {
         Heap[size] = x;
         int curr = size;
         size++;
-        System.out.print(size);
+//        System.out.print(size);
         minHeapify(size--);
         while (Heap[curr] < Heap[parent(curr)]) {
             swap(curr, parent(curr));
@@ -88,7 +88,7 @@ public class MinHeap {
 
     public int extractMin() {
         int popped = Heap[FRONT];
-        System.out.print(size+" "+FRONT);
+//        System.out.print(size+" "+FRONT);
         Heap[FRONT] = Heap[--size];
         minHeapify(FRONT);
         return popped;
