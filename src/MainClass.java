@@ -11,7 +11,7 @@ public class MainClass {
         inputFileGenerator(maxsize);
         long startTime = System.nanoTime();
 
-        int k = 2;
+        int k = 4;
         MinHeap A = new MinHeap(maxsize, k);
         try (Scanner fin = new Scanner(new File("input.txt"))) {
             FileWriter write = new FileWriter(new File("output.txt"));
