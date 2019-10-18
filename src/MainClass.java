@@ -21,6 +21,7 @@ public class MainClass {
             FileWriter write = new FileWriter(new File("output.txt"));
             Scanner in;
             int i = 0;
+            //loop to read each line of input file
             while (fin.hasNextLine()) {
                 in = new Scanner(fin.nextLine());
                 String choice = in.next();
