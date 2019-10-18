@@ -38,7 +38,7 @@ public class MinHeap {
         //any of its children
         int[] child = new int[k];
         int minChild;
-        int minChildIndex = -1; //says otherwise it might not have been initialized
+        int minChildIndex = -1;
 
         while (true) {
             for (int i = 1; i < k + 1; i++) {
@@ -57,13 +57,11 @@ public class MinHeap {
                 }
             }
             //leaf node
-
             if (minChild == Integer.MAX_VALUE)
                 break;
 
             //swap only if key of minChildIndex
             //is less than key of node
-
             if (Heap[pos] > Heap[minChildIndex])
                 swap(pos, minChildIndex);
 
@@ -86,7 +84,7 @@ public class MinHeap {
 
     public int extractMin() {
         int popped = Heap[FRONT];
-        Heap[FRONT] = Heap[--size];  //keep getting error here; size is staying at 1
+        Heap[FRONT] = Heap[--size];  
         minHeapify(FRONT);
         return popped;
     }
