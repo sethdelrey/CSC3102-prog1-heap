@@ -5,6 +5,12 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class MainClass {
+
+    //Method that prompts user for file name, reads file,
+    //and inserts each item in the file into a Heap.
+    //It then extracts the minimum values of the Heap according to the
+    //input file and prints them in order into a new file.
+    //It then provides the running time of the program.
     public static void main(String[] args) {
         System.out.print("Enter the file path of the file you would like to process: ");
         Scanner cin = new Scanner(System.in);
@@ -18,6 +24,7 @@ public class MainClass {
         try (Scanner fin = new Scanner(new File(filePath))) {
             FileWriter write = new FileWriter(new File("output.txt"));
             Scanner in;
+            //loop to read each line of input file
             while (fin.hasNextLine()) {
                 in = new Scanner(fin.nextLine());
                 String choice = in.next();
