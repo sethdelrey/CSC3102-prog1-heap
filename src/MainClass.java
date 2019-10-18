@@ -6,11 +6,16 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class MainClass {
+
+    //Method that prompts user for file name, reads file,
+    //and inserts each item in the file into a Heap.
+    //It then extracts the minimum values of the Heap according to the
+    //input file and prints them in order into a new file.
+    //It then provides the running time of the program.
     public static void main(String[] args) {
         long startTime = System.nanoTime();
-        int maxsize = 5000;
-        int k = 3;
-        inputFileGenerator(maxsize);
+        int maxsize = 50000;     //maximum size of Heap - change as needed
+        int k = 3;              //maximum number of children each node in Heap can have - change as needed
         MinHeap A = new MinHeap(maxsize, k);
         try (Scanner fin = new Scanner(new File("karyHeap-input.txt"))) {
             FileWriter write = new FileWriter(new File("output.txt"));
@@ -38,49 +43,6 @@ public class MainClass {
         catch (IOException ex) {
             ex.printStackTrace();
         }
-    }
-
-    public static void inputFileGenerator (int max){
-        try (FileWriter write = new FileWriter(new File("input.txt"))) {
-            int[] arr = new int[max];
-            int i = 1;
-            while (i < arr.length + 1) {
-                arr[i - 1] = i;
-                i++;
-            }
-            int x = arr[arr.length - 1];
-            RandomizeArray(arr);
-            i = 0;
-            while (i < arr.length) {
-                write.write("IN " + arr[i] + "\n");
-                i++;
-            }
-
-            i = 0;
-            while (i < max) {
-                while (i < max) {
-                    write.write("EX\n");
-                    i++;
-                }
-                write.close();
-            }
-        }
-        catch(Exception e){
-            System.err.print(e);
-        }
-    }
-
-    public static int[] RandomizeArray ( int[] array){
-        Random rgen = new Random();  // Random number generator
-
-        for (int i = 0; i < array.length; i++) {
-            int randomPosition = rgen.nextInt(array.length);
-            int temp = array[i];
-            array[i] = array[randomPosition];
-            array[randomPosition] = temp;
-        }
-
-        return array;
     }
 }
 
