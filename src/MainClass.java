@@ -6,10 +6,15 @@ import java.util.Scanner;
 
 public class MainClass {
     public static void main(String[] args) {
+        System.out.print("Enter the file path of the file you would like to process: ");
+        Scanner cin = new Scanner(System.in);
+        String filePath = cin.next();
+        System.out.print("Enter the maximum number of elements in the heap: ");
+        int maxSize = cin.nextInt();
+        System.out.print("Enter the number of children a node should have (k): ");
+        int k = cin.nextInt();
         long startTime = System.nanoTime();
-        int maxsize = 50;
-        int k = 2;
-        MinHeap A = new MinHeap(maxsize, k);
+        MinHeap A = new MinHeap(maxSize, k);
         try (Scanner fin = new Scanner(new File("karyHeap-input.txt"))) {
             FileWriter write = new FileWriter(new File("output.txt"));
             Scanner in;
@@ -31,7 +36,7 @@ public class MainClass {
             write.close();
         }
         catch (FileNotFoundException e) {
-            System.out.println("There was no file found with the name karyHeap-input.txt");
+            System.out.println("There was no file found with that name.");
         }
         catch (IOException ex) {
             ex.printStackTrace();
