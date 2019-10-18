@@ -1,3 +1,10 @@
+/*
+Seth Richard, Raquel Hodgeson
+Programming Project 1
+CSC 3102 - Dr. Shah
+10/18/19
+ */
+
 public class MinHeap {
     private int[] Heap;     //array representation of the minHeap
     private int size;       //number of current elements in the heap
