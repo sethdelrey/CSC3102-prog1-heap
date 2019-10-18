@@ -15,10 +15,9 @@ public class MainClass {
         int k = cin.nextInt();
         long startTime = System.nanoTime();
         MinHeap A = new MinHeap(maxSize, k);
-        try (Scanner fin = new Scanner(new File("karyHeap-input.txt"))) {
+        try (Scanner fin = new Scanner(new File(filePath))) {
             FileWriter write = new FileWriter(new File("output.txt"));
             Scanner in;
-            int i = 0;
             while (fin.hasNextLine()) {
                 in = new Scanner(fin.nextLine());
                 String choice = in.next();
@@ -26,8 +25,7 @@ public class MainClass {
                     A.insert(in.nextInt());
                 }
                 else {
-                    i++;
-                    write.write(A.extractMin() + "\n"); //"\\ result for extract-min operation " + i+"\n");
+                    write.write(A.extractMin() + "\n");
                 }
             }
             long endTime = System.nanoTime();
@@ -41,9 +39,6 @@ public class MainClass {
         catch (IOException ex) {
             ex.printStackTrace();
         }
-//        long endTime = System.nanoTime();
-//        long timeElapsed = endTime - startTime;
-//        System.out.println(timeElapsed/1000+" micro-sec");
     }
 
 }
