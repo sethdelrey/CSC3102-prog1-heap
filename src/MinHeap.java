@@ -1,31 +1,24 @@
 public class MinHeap {
-    private int[] Heap;
-    private int size;
-    private int maxsize;
-    private int k;
+    private int[] Heap;     //array representation of the minHeap
+    private int size;       //number of current elements in the heap
+    private int maxsize;    //maximum number of elements the heap can hold
+    private int k;          //maximum number of children each parent element can hold
 
-    private static final int FRONT = 1;
-
+    //constructor for k-ary MinHeap with given maxsize
+    //and given k
     public MinHeap(int maxsize, int k) {
         this.maxsize = maxsize;
         this.size = 0;
-        Heap = new int[this.maxsize + 1];
-        Heap[0] = Integer.MIN_VALUE;
+        Heap = new int[this.maxsize];
         this.k = k;
     }
 
+    //returns the parent element of the element in the given index pos
     private int parent(int pos) {
         return pos/k;
     }
 
-    private int leftChild(int pos) {
-        return k*pos;
-    }
-
-    private int rightChild(int pos) {
-        return (k*pos) + 1;
-    }
-
+    //returns true if the element at index pos has no children
     private boolean isLeaf(int pos) {
         if (pos >= (size/k) && pos <= size) {
             return true;
@@ -33,7 +26,7 @@ public class MinHeap {
         return false;
     }
 
-    //swaps 2 nodes of the heap
+    //swaps 2 nodes of the heap at the indices fpos and spos
     private void swap(int fpos, int spos) {
         int temp;
         temp = Heap[fpos];
@@ -41,44 +34,66 @@ public class MinHeap {
         Heap[spos] = temp;
     }
 
+    //Method to restore the heap property of the nodes
+    //of the subtree rooted at index pos
     private void minHeapify(int pos) {
         //if node is nonleaf & greater than
         //any of its children
-        if (!isLeaf(pos)) {
-            if (Heap[pos] > Heap[leftChild(pos)] || Heap[pos] > Heap[rightChild(pos)]) {
+        int[] child = new int[k];
+        int minChild;
+        int minChildIndex = -1;
 
-                //swap w leftchild and heapify left child
-                if (Heap[leftChild(pos)] < Heap[rightChild(pos)]) {
-                    swap(pos, leftChild(pos));
-                    minHeapify(leftChild(pos));
-                }
-                //swap w rightchild & heapify rightchild
-                else {
-                    swap(pos, rightChild(pos));
-                    minHeapify(rightChild(pos));
+        while (true) {
+            for (int i = 1; i < k + 1; i++) {
+                if (((k * pos + i) < size))
+                    child[i - 1] = k * pos + i;
+                else
+                    child[i - 1] = Integer.MAX_VALUE;
+            }
+
+            minChild = Integer.MAX_VALUE;
+
+            for (int i = 0; i < k; i++) {
+                if (child[i] != Integer.MAX_VALUE && Heap[child[i]] < minChild) {
+                    minChildIndex = child[i];
+                    minChild = Heap[child[i]];
                 }
             }
+            //leaf node
+            if (minChild == Integer.MAX_VALUE)
+                break;
+
+            //swap only if key of minChildIndex
+            //is less than key of node
+            if (Heap[pos] > Heap[minChildIndex])
+                swap(pos, minChildIndex);
+
+            pos = minChildIndex;
         }
     }
 
+    //Method to insert a value in the heap
+    //Parameter x is the key of the element
     public void insert(int x) {
         if (size >= maxsize) {
             return;
         }
-        Heap[++size] = x;
+        Heap[size] = x;
         int curr = size;
-
+        size++;
         while (Heap[curr] < Heap[parent(curr)]) {
             swap(curr, parent(curr));
             curr = parent(curr);
-        }
+       }
     }
 
+    //Method that returns the key of the minimum value
+    //of the heap and restores the heap property
+    //of the remaining nodes
     public int extractMin() {
-        int popped = Heap[FRONT];
-        Heap[FRONT] = Heap[size--];
-        minHeapify(FRONT);
+        int popped = Heap[0];
+        Heap[0] = Heap[--size];
+        minHeapify(0);
         return popped;
     }
-
 }
