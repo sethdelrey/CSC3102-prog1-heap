@@ -8,11 +8,11 @@ import java.util.Scanner;
 public class MainClass {
     public static void main(String[] args) {
         long startTime = System.nanoTime();
-        int maxsize = 50000;
+        int maxsize = 5000;
         int k = 3;
         inputFileGenerator(maxsize);
         MinHeap A = new MinHeap(maxsize, k);
-        try (Scanner fin = new Scanner(new File("input.txt"))) {
+        try (Scanner fin = new Scanner(new File("karyHeap-input.txt"))) {
             FileWriter write = new FileWriter(new File("output.txt"));
             Scanner in;
             int i = 0;
@@ -24,7 +24,7 @@ public class MainClass {
                 }
                 else {
                     i++;
-                    write.write(A.extractMin() + "\n"); //"\\ result for extract-min operation " + i+"\n");
+                    write.write(A.extractMin() + "\n");
                 }
             }
             long endTime = System.nanoTime();
